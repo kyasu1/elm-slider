@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="22px" viewBox="0 0 17 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>angled-left</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="24" transform="translate(-5.000000, -1.000000)">
+            <g id="angled-left">
+                <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+                <polygon id="icon" stroke="#979797" fill="#FFFFFF" transform="translate(13.000000, 12.000000) scale(-1, 1) translate(-13.000000, -12.000000) " points="7 2 21 12 7 22 5 19 15 12 5 5"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
