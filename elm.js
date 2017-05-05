@@ -8331,46 +8331,60 @@ var _knledg$touch_events$TouchEvents$getDirectionX = F2(
 		return (_elm_lang$core$Native_Utils.cmp(start, end) > 0) ? _knledg$touch_events$TouchEvents$Left : _knledg$touch_events$TouchEvents$Right;
 	});
 
-var _user$project$Slider8$vw = function (value) {
+var _kyasu1$elm_slider$Slider$vw = function (value) {
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
 		_elm_lang$core$Basics$toString(value),
 		'vw');
 };
-var _user$project$Slider8$pct = function (value) {
+var _kyasu1$elm_slider$Slider$pct = function (value) {
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
 		_elm_lang$core$Basics$toString(value),
 		'%');
 };
-var _user$project$Slider8$px = function (value) {
+var _kyasu1$elm_slider$Slider$px = function (value) {
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
 		_elm_lang$core$Basics$toString(value),
 		'px');
 };
-var _user$project$Slider8$stage = function (image) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
+var _kyasu1$elm_slider$Slider$stage = F3(
+	function (current, index, image) {
+		var styles = _elm_lang$core$Native_Utils.eq(current, index) ? {
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('elm-slider--image'),
+			_0: {ctor: '_Tuple2', _0: 'flex', _1: '1'},
 			_1: {ctor: '[]'}
-		},
-		{
+		} : {
 			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$img,
-				{
+			_0: {ctor: '_Tuple2', _0: 'flex', _1: '0'},
+			_1: {ctor: '[]'}
+		};
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('elm-slider--image'),
+				_1: {
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$src(image),
+					_0: _elm_lang$html$Html_Attributes$style(styles),
 					_1: {ctor: '[]'}
-				},
-				{ctor: '[]'}),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Slider8$moveImage = F2(
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$img,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$src(image),
+						_1: {ctor: '[]'}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _kyasu1$elm_slider$Slider$moveImage = F2(
 	function (action, state) {
 		var _p0 = action;
 		switch (_p0.ctor) {
@@ -8418,32 +8432,32 @@ var _user$project$Slider8$moveImage = F2(
 						state.touch));
 		}
 	});
-var _user$project$Slider8$initialState = {current: 0, touch: _elm_lang$core$Maybe$Nothing};
-var _user$project$Slider8$btnLeft = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxN3B4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAxNyAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5hbmdsZWQtbGVmdDwvdGl0bGU+ICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPiAgICA8ZGVmcz48L2RlZnM+ICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiAgICAgICAgPGcgaWQ9IjI0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNS4wMDAwMDAsIC0xLjAwMDAwMCkiPiAgICAgICAgICAgIDxnIGlkPSJhbmdsZWQtbGVmdCI+ICAgICAgICAgICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIHg9IjAiIHk9IjAiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PC9yZWN0PiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iaWNvbiIgc3Ryb2tlPSIjOTc5Nzk3IiBmaWxsPSIjRkZGRkZGIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMy4wMDAwMDAsIDEyLjAwMDAwMCkgc2NhbGUoLTEsIDEpIHRyYW5zbGF0ZSgtMTMuMDAwMDAwLCAtMTIuMDAwMDAwKSAiIHBvaW50cz0iNyAyIDIxIDEyIDcgMjIgNSAxOSAxNSAxMiA1IDUiPjwvcG9seWdvbj4gICAgICAgICAgICA8L2c+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4=';
-var _user$project$Slider8$btnRight = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxN3B4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAxNyAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5hbmdsZWQtcmlnaHQ8L3RpdGxlPiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4gICAgPGRlZnM+PC9kZWZzPiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4gICAgICAgIDxnIGlkPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQuMDAwMDAwLCAtMS4wMDAwMDApIj4gICAgICAgICAgICA8ZyBpZD0iYW5nbGVkLXJpZ2h0Ij4gICAgICAgICAgICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48L3JlY3Q+ICAgICAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJpY29uIiBzdHJva2U9IiM5Nzk3OTciIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iNyAyIDIxIDEyIDcgMjIgNSAxOSAxNSAxMiA1IDUiPjwvcG9seWdvbj4gICAgICAgICAgICA8L2c+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4=';
-var _user$project$Slider8$State = F2(
+var _kyasu1$elm_slider$Slider$initialState = {current: 0, touch: _elm_lang$core$Maybe$Nothing};
+var _kyasu1$elm_slider$Slider$btnLeft = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxN3B4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAxNyAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5hbmdsZWQtbGVmdDwvdGl0bGU+ICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPiAgICA8ZGVmcz48L2RlZnM+ICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiAgICAgICAgPGcgaWQ9IjI0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNS4wMDAwMDAsIC0xLjAwMDAwMCkiPiAgICAgICAgICAgIDxnIGlkPSJhbmdsZWQtbGVmdCI+ICAgICAgICAgICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIHg9IjAiIHk9IjAiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PC9yZWN0PiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iaWNvbiIgc3Ryb2tlPSIjOTc5Nzk3IiBmaWxsPSIjRkZGRkZGIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMy4wMDAwMDAsIDEyLjAwMDAwMCkgc2NhbGUoLTEsIDEpIHRyYW5zbGF0ZSgtMTMuMDAwMDAwLCAtMTIuMDAwMDAwKSAiIHBvaW50cz0iNyAyIDIxIDEyIDcgMjIgNSAxOSAxNSAxMiA1IDUiPjwvcG9seWdvbj4gICAgICAgICAgICA8L2c+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4=';
+var _kyasu1$elm_slider$Slider$btnRight = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxN3B4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAxNyAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5hbmdsZWQtcmlnaHQ8L3RpdGxlPiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4gICAgPGRlZnM+PC9kZWZzPiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4gICAgICAgIDxnIGlkPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQuMDAwMDAwLCAtMS4wMDAwMDApIj4gICAgICAgICAgICA8ZyBpZD0iYW5nbGVkLXJpZ2h0Ij4gICAgICAgICAgICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48L3JlY3Q+ICAgICAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJpY29uIiBzdHJva2U9IiM5Nzk3OTciIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iNyAyIDIxIDEyIDcgMjIgNSAxOSAxNSAxMiA1IDUiPjwvcG9seWdvbj4gICAgICAgICAgICA8L2c+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4=';
+var _kyasu1$elm_slider$Slider$State = F2(
 	function (a, b) {
 		return {current: a, touch: b};
 	});
-var _user$project$Slider8$Config = function (a) {
+var _kyasu1$elm_slider$Slider$Config = function (a) {
 	return {ctor: 'Config', _0: a};
 };
-var _user$project$Slider8$config = function (_p3) {
+var _kyasu1$elm_slider$Slider$config = function (_p3) {
 	var _p4 = _p3;
-	return _user$project$Slider8$Config(
+	return _kyasu1$elm_slider$Slider$Config(
 		{move: _p4.move});
 };
-var _user$project$Slider8$OnTouchEnd = F2(
+var _kyasu1$elm_slider$Slider$OnTouchEnd = F2(
 	function (a, b) {
 		return {ctor: 'OnTouchEnd', _0: a, _1: b};
 	});
-var _user$project$Slider8$OnTouchStart = function (a) {
+var _kyasu1$elm_slider$Slider$OnTouchStart = function (a) {
 	return {ctor: 'OnTouchStart', _0: a};
 };
-var _user$project$Slider8$SetCurrent = function (a) {
+var _kyasu1$elm_slider$Slider$SetCurrent = function (a) {
 	return {ctor: 'SetCurrent', _0: a};
 };
-var _user$project$Slider8$dotsItem = F4(
+var _kyasu1$elm_slider$Slider$dotsItem = F4(
 	function (move, current, index, image) {
 		return _elm_lang$core$Native_Utils.eq(current, index) ? A2(
 			_elm_lang$html$Html$div,
@@ -8474,7 +8488,7 @@ var _user$project$Slider8$dotsItem = F4(
 				ctor: '::',
 				_0: _elm_lang$html$Html_Events$onClick(
 					move(
-						_user$project$Slider8$SetCurrent(index))),
+						_kyasu1$elm_slider$Slider$SetCurrent(index))),
 				_1: {
 					ctor: '::',
 					_0: _elm_lang$html$Html_Attributes$style(
@@ -8499,7 +8513,7 @@ var _user$project$Slider8$dotsItem = F4(
 				_1: {ctor: '[]'}
 			});
 	});
-var _user$project$Slider8$dots = F3(
+var _kyasu1$elm_slider$Slider$dots = F3(
 	function (move, current, images) {
 		return A2(
 			_elm_lang$html$Html$div,
@@ -8510,12 +8524,12 @@ var _user$project$Slider8$dots = F3(
 			},
 			A2(
 				_elm_lang$core$List$indexedMap,
-				A2(_user$project$Slider8$dotsItem, move, current),
+				A2(_kyasu1$elm_slider$Slider$dotsItem, move, current),
 				images));
 	});
-var _user$project$Slider8$Prev = {ctor: 'Prev'};
-var _user$project$Slider8$Next = {ctor: 'Next'};
-var _user$project$Slider8$view = F3(
+var _kyasu1$elm_slider$Slider$Prev = {ctor: 'Prev'};
+var _kyasu1$elm_slider$Slider$Next = {ctor: 'Next'};
+var _kyasu1$elm_slider$Slider$view = F3(
 	function (_p6, _p5, images) {
 		var _p7 = _p6;
 		var _p10 = _p7._0.move;
@@ -8525,7 +8539,7 @@ var _user$project$Slider8$view = F3(
 			_p9,
 			_elm_lang$core$List$length(images) - 1) ? _elm_lang$html$Html_Attributes$class('disabled') : _elm_lang$html$Html_Attributes$class('');
 		var prevDisabled = _elm_lang$core$Native_Utils.eq(_p9, 0) ? _elm_lang$html$Html_Attributes$class('disabled') : _elm_lang$html$Html_Attributes$class('');
-		var left = _user$project$Slider8$pct(_p9 * -100);
+		var left = _kyasu1$elm_slider$Slider$pct(_p9 * -100);
 		return A2(
 			_elm_lang$html$Html$div,
 			{
@@ -8558,7 +8572,7 @@ var _user$project$Slider8$view = F3(
 									{
 										ctor: '::',
 										_0: _elm_lang$html$Html_Events$onClick(
-											_p10(_user$project$Slider8$Prev)),
+											_p10(_kyasu1$elm_slider$Slider$Prev)),
 										_1: {
 											ctor: '::',
 											_0: prevDisabled,
@@ -8571,7 +8585,7 @@ var _user$project$Slider8$view = F3(
 											_elm_lang$html$Html$img,
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$src(_user$project$Slider8$btnLeft),
+												_0: _elm_lang$html$Html_Attributes$src(_kyasu1$elm_slider$Slider$btnLeft),
 												_1: {ctor: '[]'}
 											},
 											{ctor: '[]'}),
@@ -8588,39 +8602,33 @@ var _user$project$Slider8$view = F3(
 									_0: _elm_lang$html$Html_Attributes$class('elm-slider--inner'),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$style(
-											{
-												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'margin-left', _1: left},
-												_1: {ctor: '[]'}
+										_0: A2(
+											_knledg$touch_events$TouchEvents$onTouchEvent,
+											_knledg$touch_events$TouchEvents$TouchStart,
+											function (e) {
+												return _p10(
+													_kyasu1$elm_slider$Slider$OnTouchStart(e));
 											}),
 										_1: {
 											ctor: '::',
 											_0: A2(
 												_knledg$touch_events$TouchEvents$onTouchEvent,
-												_knledg$touch_events$TouchEvents$TouchStart,
+												_knledg$touch_events$TouchEvents$TouchEnd,
 												function (e) {
 													return _p10(
-														_user$project$Slider8$OnTouchStart(e));
+														A2(
+															_kyasu1$elm_slider$Slider$OnTouchEnd,
+															e,
+															_elm_lang$core$List$length(images)));
 												}),
-											_1: {
-												ctor: '::',
-												_0: A2(
-													_knledg$touch_events$TouchEvents$onTouchEvent,
-													_knledg$touch_events$TouchEvents$TouchEnd,
-													function (e) {
-														return _p10(
-															A2(
-																_user$project$Slider8$OnTouchEnd,
-																e,
-																_elm_lang$core$List$length(images)));
-													}),
-												_1: {ctor: '[]'}
-											}
+											_1: {ctor: '[]'}
 										}
 									}
 								},
-								A2(_elm_lang$core$List$map, _user$project$Slider8$stage, images)),
+								A2(
+									_elm_lang$core$List$indexedMap,
+									_kyasu1$elm_slider$Slider$stage(_p9),
+									images)),
 							_1: {
 								ctor: '::',
 								_0: A2(
@@ -8637,7 +8645,7 @@ var _user$project$Slider8$view = F3(
 											{
 												ctor: '::',
 												_0: _elm_lang$html$Html_Events$onClick(
-													_p10(_user$project$Slider8$Next)),
+													_p10(_kyasu1$elm_slider$Slider$Next)),
 												_1: {
 													ctor: '::',
 													_0: nextDisabled,
@@ -8650,7 +8658,7 @@ var _user$project$Slider8$view = F3(
 													_elm_lang$html$Html$img,
 													{
 														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$src(_user$project$Slider8$btnRight),
+														_0: _elm_lang$html$Html_Attributes$src(_kyasu1$elm_slider$Slider$btnRight),
 														_1: {ctor: '[]'}
 													},
 													{ctor: '[]'}),
@@ -8664,79 +8672,16 @@ var _user$project$Slider8$view = F3(
 					}),
 				_1: {
 					ctor: '::',
-					_0: A3(_user$project$Slider8$dots, _p10, _p9, images),
+					_0: A3(_kyasu1$elm_slider$Slider$dots, _p10, _p9, images),
 					_1: {ctor: '[]'}
 				}
 			});
 	});
 
-var _user$project$Main8$update = F2(
-	function (msg, _p0) {
-		var _p1 = _p0;
-		var _p3 = _p1;
-		var _p2 = msg;
-		return {
-			ctor: '_Tuple2',
-			_0: _elm_lang$core$Native_Utils.update(
-				_p3,
-				{
-					slider: A2(_user$project$Slider8$moveImage, _p2._0, _p3.slider)
-				}),
-			_1: _elm_lang$core$Platform_Cmd$none
-		};
-	});
-var _user$project$Main8$initialModel = {slider: _user$project$Slider8$initialState};
-var _user$project$Main8$imageList = {
-	ctor: '::',
-	_0: 'https://auctions.c.yimg.jp/images.auctions.yahoo.co.jp/image/dr141/auc0302/users/8/4/3/8/pawnshopiko-imgbatch_1487215837/600x600-2017021300045.jpg',
-	_1: {
-		ctor: '::',
-		_0: 'https://auctions.c.yimg.jp/images.auctions.yahoo.co.jp/image/dr141/auc0302/users/8/4/3/8/pawnshopiko-imgbatch_1487215837/600x600-2017021300046.jpg',
-		_1: {
-			ctor: '::',
-			_0: 'https://auctions.c.yimg.jp/images.auctions.yahoo.co.jp/image/dr141/auc0302/users/8/4/3/8/pawnshopiko-imgbatch_1487215837/600x600-2017021300047.jpg',
-			_1: {
-				ctor: '::',
-				_0: 'https://auctions.c.yimg.jp/images.auctions.yahoo.co.jp/image/dr141/auc0302/users/8/4/3/8/pawnshopiko-imgbatch_1487215837/600x600-2017021300048.jpg',
-				_1: {
-					ctor: '::',
-					_0: 'https://auctions.c.yimg.jp/images.auctions.yahoo.co.jp/image/dr141/auc0302/users/8/4/3/8/pawnshopiko-imgbatch_1487215837/600x600-2017021300049.jpg',
-					_1: {
-						ctor: '::',
-						_0: 'https://auctions.c.yimg.jp/images.auctions.yahoo.co.jp/image/dr141/auc0302/users/8/4/3/8/pawnshopiko-imgbatch_1487215837/600x600-2017021600001.jpg',
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		}
-	}
-};
-var _user$project$Main8$Model = function (a) {
-	return {slider: a};
-};
-var _user$project$Main8$Move = function (a) {
-	return {ctor: 'Move', _0: a};
-};
-var _user$project$Main8$view = function (_p4) {
-	var _p5 = _p4;
-	var config = _user$project$Slider8$config(
-		{move: _user$project$Main8$Move});
-	return A3(_user$project$Slider8$view, config, _p5.slider, _user$project$Main8$imageList);
-};
-var _user$project$Main8$main = _elm_lang$html$Html$program(
-	{
-		init: {ctor: '_Tuple2', _0: _user$project$Main8$initialModel, _1: _elm_lang$core$Platform_Cmd$none},
-		view: _user$project$Main8$view,
-		update: _user$project$Main8$update,
-		subscriptions: function (_p6) {
-			return _elm_lang$core$Platform_Sub$none;
-		}
-	})();
-
 var Elm = {};
-Elm['Main8'] = Elm['Main8'] || {};
-if (typeof _user$project$Main8$main !== 'undefined') {
-    _user$project$Main8$main(Elm['Main8'], 'Main8', undefined);
+Elm['Slider'] = Elm['Slider'] || {};
+if (typeof _kyasu1$elm_slider$Slider$main !== 'undefined') {
+    _kyasu1$elm_slider$Slider$main(Elm['Slider'], 'Slider', undefined);
 }
 
 if (typeof define === "function" && define['amd'])

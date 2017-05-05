@@ -144,7 +144,7 @@ view (Config { move }) { current } images =
                     , TouchEvents.onTouchEvent TouchEvents.TouchStart (\e -> move (OnTouchStart e))
                     , TouchEvents.onTouchEvent TouchEvents.TouchEnd (\e -> move (OnTouchEnd e (List.length images)))
                     ]
-                    (List.map stage images)
+                    (List.indexedMap (stage current) images)
                 , div [ class "elm-slider--next" ]
                     [ a
                         [ onClick (move Next)
@@ -158,14 +158,21 @@ view (Config { move }) { current } images =
             ]
 
 
-stage : String -> Html msg
-stage image =
-    div [ class "elm-slider--image" ]
-        [ img
-            [ src image
+stage : Int -> Int -> String -> Html msg
+stage current index image =
+    let
+        styles =
+            if current == index then
+                [ ( "flex", "1" ) ]
+            else
+                [ ( "flex", "0" ) ]
+    in
+        div [ class "elm-slider--image", style styles ]
+            [ img
+                [ src image
+                ]
+                []
             ]
-            []
-        ]
 
 
 dots : (Action -> msg) -> Int -> List String -> Html msg

@@ -4,3 +4,5 @@ elm-stuff/
 
 .sass-cache/
 *.css.map
+
+elm.js
