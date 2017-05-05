@@ -114,6 +114,9 @@ view (Config { move }) { current } images =
         left =
             current * (-100) |> pct
 
+        right =
+            ((List.length images) - current - 1) * (-100) |> pct
+
         prevDisabled =
             if current == 0 then
                 class "disabled"
@@ -140,7 +143,7 @@ view (Config { move }) { current } images =
                     ]
                 , div
                     [ class "elm-slider--inner"
-                    , style [ ( "margin-left", left ) ]
+                    , style [ ( "margin-left", left ), ( "margin-right", right ) ]
                     , TouchEvents.onTouchEvent TouchEvents.TouchStart (\e -> move (OnTouchStart e))
                     , TouchEvents.onTouchEvent TouchEvents.TouchEnd (\e -> move (OnTouchEnd e (List.length images)))
                     ]
@@ -167,7 +170,7 @@ stage current index image =
             else
                 [ ( "flex", "0" ) ]
     in
-        div [ class "elm-slider--image", style styles ]
+        div [ class "elm-slider--image" ]
             [ img
                 [ src image
                 ]

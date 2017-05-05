@@ -45,7 +45,9 @@ view { slider } =
         config =
             Slider.config { move = Move }
     in
-        Slider.view config slider imageList
+        div [ style [ ( "max-width", "600px" ) ] ]
+            [ Slider.view config slider imageList
+            ]
 
 
 main : Program Never Model Msg

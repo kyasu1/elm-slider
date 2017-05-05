@@ -8365,11 +8365,7 @@ var _kyasu1$elm_slider$Slider$stage = F3(
 			{
 				ctor: '::',
 				_0: _elm_lang$html$Html_Attributes$class('elm-slider--image'),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$style(styles),
-					_1: {ctor: '[]'}
-				}
+				_1: {ctor: '[]'}
 			},
 			{
 				ctor: '::',
@@ -8539,6 +8535,8 @@ var _kyasu1$elm_slider$Slider$view = F3(
 			_p9,
 			_elm_lang$core$List$length(images) - 1) ? _elm_lang$html$Html_Attributes$class('disabled') : _elm_lang$html$Html_Attributes$class('');
 		var prevDisabled = _elm_lang$core$Native_Utils.eq(_p9, 0) ? _elm_lang$html$Html_Attributes$class('disabled') : _elm_lang$html$Html_Attributes$class('');
+		var right = _kyasu1$elm_slider$Slider$pct(
+			(_elm_lang$core$List$length(images) - _p9) * -100);
 		var left = _kyasu1$elm_slider$Slider$pct(_p9 * -100);
 		return A2(
 			_elm_lang$html$Html$div,
@@ -8602,26 +8600,39 @@ var _kyasu1$elm_slider$Slider$view = F3(
 									_0: _elm_lang$html$Html_Attributes$class('elm-slider--inner'),
 									_1: {
 										ctor: '::',
-										_0: A2(
-											_knledg$touch_events$TouchEvents$onTouchEvent,
-											_knledg$touch_events$TouchEvents$TouchStart,
-											function (e) {
-												return _p10(
-													_kyasu1$elm_slider$Slider$OnTouchStart(e));
+										_0: _elm_lang$html$Html_Attributes$style(
+											{
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'margin-left', _1: left},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'margin-right', _1: right},
+													_1: {ctor: '[]'}
+												}
 											}),
 										_1: {
 											ctor: '::',
 											_0: A2(
 												_knledg$touch_events$TouchEvents$onTouchEvent,
-												_knledg$touch_events$TouchEvents$TouchEnd,
+												_knledg$touch_events$TouchEvents$TouchStart,
 												function (e) {
 													return _p10(
-														A2(
-															_kyasu1$elm_slider$Slider$OnTouchEnd,
-															e,
-															_elm_lang$core$List$length(images)));
+														_kyasu1$elm_slider$Slider$OnTouchStart(e));
 												}),
-											_1: {ctor: '[]'}
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_knledg$touch_events$TouchEvents$onTouchEvent,
+													_knledg$touch_events$TouchEvents$TouchEnd,
+													function (e) {
+														return _p10(
+															A2(
+																_kyasu1$elm_slider$Slider$OnTouchEnd,
+																e,
+																_elm_lang$core$List$length(images)));
+													}),
+												_1: {ctor: '[]'}
+											}
 										}
 									}
 								},

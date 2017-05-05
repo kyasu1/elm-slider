@@ -116,11 +116,15 @@ $slider-arrow-desktop-size: 3rem;
     .#{$slider-ns}outer {
       max-width: $slider-width;
       height: $slider-width;
-
-      .#{$slider-ns}image {
-        img {
-         width: $slider-width;
-       }
+      .#{$slider-ns}inner {
+        .#{$slider-ns}image {
+          max-width: 100%;
+      
+          img {
+//           width: $slider-width;
+            max-width: 100%;
+          }
+        }
       }
     }
   }
@@ -128,7 +132,7 @@ $slider-arrow-desktop-size: 3rem;
   .#{$slider-ns}dots {
     display: flex;
     flex-wrap: wrap;
-    width: 600px;
+    width: 100%;
     justify-content: flex-start;
 
     &:hover {
@@ -137,7 +141,7 @@ $slider-arrow-desktop-size: 3rem;
 
     div {
       border-radius: 0;
-      width: 120px;
+      width: 20%;
       height: auto;
 
       img {

@@ -81,19 +81,21 @@
     .elm-slider--view .elm-slider--outer {
       max-width: 600px;
       height: 600px; }
-      .elm-slider--view .elm-slider--outer .elm-slider--image img {
-        width: 600px; }
+      .elm-slider--view .elm-slider--outer .elm-slider--inner .elm-slider--image {
+        max-width: 100%; }
+        .elm-slider--view .elm-slider--outer .elm-slider--inner .elm-slider--image img {
+          max-width: 100%; }
 
   .elm-slider--dots {
     display: flex;
     flex-wrap: wrap;
-    width: 600px;
+    width: 100%;
     justify-content: flex-start; }
     .elm-slider--dots:hover {
       cursor: pointer; }
     .elm-slider--dots div {
       border-radius: 0;
-      width: 120px;
+      width: 20%;
       height: auto; }
       .elm-slider--dots div img {
         display: block;
