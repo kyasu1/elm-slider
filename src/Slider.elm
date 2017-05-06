@@ -117,43 +117,53 @@ view (Config { move }) { current } images =
         right =
             ((List.length images) - current - 1) * (-100) |> pct
 
-        prevDisabled =
-            if current == 0 then
-                class "disabled"
-            else
-                class ""
+        classButton =
+            [ "items-center", "o-100", "w3", "h-100", "absolute", "top-0", "z-999", "justify-center" ]
 
-        nextDisabled =
-            if current == (List.length images) - 1 then
-                class "disabled"
-            else
-                class ""
+        classButtonPrev =
+            let
+                display =
+                    if current == 0 then
+                        [ "dn" ]
+                    else
+                        [ "flex" ]
+            in
+                toClassString <| [ "left-0" ] ++ classButton ++ display
+
+        classButtonNext =
+            let
+                display =
+                    if current == (List.length images) - 1 then
+                        [ "dn" ]
+                    else
+                        [ "flex" ]
+            in
+                toClassString <| [ "right-0" ] ++ classButton ++ display
+
+        classButtonImg =
+            toClassString [ "v-top", "w2", "h2", "mw-100", "mh-100", "di", "pointer" ]
     in
-        div [ class "elm-slider--view" ]
+        div [ class "flex flex-column mw-100 overflow-hidden" ]
             [ div
-                [ class "elm-slider--outer"
+                [ class "relative w-100-ns h-auto"
                 ]
-                [ div [ class "elm-slider--prev" ]
-                    [ a
-                        [ onClick (move Prev)
-                        , prevDisabled
-                        ]
-                        [ img [ src btnLeft ] []
+                [ span [ style [ ( "display", "block" ), ( "padding-top", "100%" ) ] ] []
+                , div [ class classButtonPrev ]
+                    [ a [ onClick (move Prev) ]
+                        [ img [ src btnLeft, class classButtonImg ] []
                         ]
                     ]
                 , div
-                    [ class "elm-slider--inner"
-                    , style [ ( "margin-left", left ), ( "margin-right", right ) ]
+                    [ class "absolute top-0 flex overflow-hidden transition-all"
+                    , style [ ( "margin-left", left ), ( "margin-right", right ), ( "transition", "all 0.5s ease-in" ) ]
                     , TouchEvents.onTouchEvent TouchEvents.TouchStart (\e -> move (OnTouchStart e))
                     , TouchEvents.onTouchEvent TouchEvents.TouchEnd (\e -> move (OnTouchEnd e (List.length images)))
                     ]
                     (List.indexedMap (stage current) images)
-                , div [ class "elm-slider--next" ]
+                , div [ class classButtonNext ]
                     [ a
-                        [ onClick (move Next)
-                        , nextDisabled
-                        ]
-                        [ img [ src btnRight ] []
+                        [ onClick (move Next) ]
+                        [ img [ src btnRight, class classButtonImg ] []
                         ]
                     ]
                 ]
@@ -163,54 +173,57 @@ view (Config { move }) { current } images =
 
 stage : Int -> Int -> String -> Html msg
 stage current index image =
-    let
-        styles =
-            if current == index then
-                [ ( "flex", "1" ) ]
-            else
-                [ ( "flex", "0" ) ]
-    in
-        div [ class "elm-slider--image" ]
-            [ img
-                [ src image
-                ]
-                []
+    div [ class "" ]
+        [ img
+            [ src image
+            , class "w-100"
             ]
+            []
+        ]
 
 
 dots : (Action -> msg) -> Int -> List String -> Html msg
 dots move current images =
-    div
-        [ class "elm-slider--dots"
-        ]
-        (List.indexedMap (dotsItem move current) images)
+    let
+        classes =
+            [ "flex", "justify-around", "mt3", "w-50", "self-center" ]
+
+        classesNs =
+            [ "flex-wrap-ns", "w-100-ns", "justify-start-ns" ]
+    in
+        div
+            [ class <| toClassString (classes ++ classesNs)
+            ]
+            (List.indexedMap (dotsItem move current) images)
 
 
 dotsItem : (Action -> msg) -> Int -> Int -> String -> Html msg
 dotsItem move current index image =
-    if current == index then
-        div [ style [ ( "opacity", "1" ) ] ]
-            [ img [ src image ] []
-            ]
-    else
-        div
-            [ onClick (move (SetCurrent index))
-            , style [ ( "opacity", "0.5" ) ]
-            ]
-            [ img [ src image ] []
-            ]
+    let
+        classes =
+            [ "br-50", "h1", "w1", "br3", "bg-black-80" ]
+
+        classesNs =
+            [ "br0-ns", "w-20-ns", "h-auto-ns" ]
+    in
+        if current == index then
+            div [ class <| toClassString (classes ++ classesNs ++ [ "o-100 ba b--solid b--black-50" ]) ]
+                [ img [ src image, class "dn db-ns" ] []
+                ]
+        else
+            div
+                [ onClick (move (SetCurrent index))
+                , class <| toClassString (classes ++ classesNs ++ [ "o-50 pointer" ])
+                ]
+                [ img [ src image, class "dn db-ns" ] []
+                ]
 
 
-px : Int -> String
-px value =
-    (toString value) ++ "px"
+toClassString : List String -> String
+toClassString list =
+    String.join " " list
 
 
 pct : Int -> String
 pct value =
     (toString value) ++ "%"
-
-
-vw : Int -> String
-vw value =
-    (toString value) ++ "vw"
