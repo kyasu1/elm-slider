@@ -105,8 +105,7 @@ moveImage action state =
 -- VIEW
 
 
-{-|
-  http://csscience.com/responsiveslidercss3/
+{-| <http://csscience.com/responsiveslidercss3/>
 -}
 view : Config msg -> State -> List String -> Html msg
 view (Config { move }) { current } images =
@@ -173,7 +172,7 @@ view (Config { move }) { current } images =
 
 stage : Int -> Int -> String -> Html msg
 stage current index image =
-    div [ class "" ]
+    div [ class "w-100" ]
         [ img
             [ src image
             , class "w-100"
