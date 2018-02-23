@@ -1,24 +1,37 @@
 module Slider
     exposing
-        ( State
-        , initialState
+        ( Action
         , Config
+        , State
         , config
-        , Action
+        , initialState
         , moveImage
         , view
         )
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
-import TouchEvents exposing (TouchEvent(..), Direction(..), Touch)
+{-|
+
+@docs Action, Config, State
+@docs config, initialState, moveImage, view
+
+-}
+
+-- import Css.Transitions as T expsoing (transition)
+
+import Css exposing (..)
+import Css.Media as Media exposing (only, screen, withMedia)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes as Attributes exposing (class, css, src, style)
+import Html.Styled.Events exposing (onClick)
+import TouchEvents exposing (Direction(..), Touch, TouchEvent(..))
 
 
+btnRight : String
 btnRight =
     "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxN3B4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAxNyAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5hbmdsZWQtcmlnaHQ8L3RpdGxlPiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4gICAgPGRlZnM+PC9kZWZzPiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4gICAgICAgIDxnIGlkPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQuMDAwMDAwLCAtMS4wMDAwMDApIj4gICAgICAgICAgICA8ZyBpZD0iYW5nbGVkLXJpZ2h0Ij4gICAgICAgICAgICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48L3JlY3Q+ICAgICAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJpY29uIiBzdHJva2U9IiM5Nzk3OTciIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iNyAyIDIxIDEyIDcgMjIgNSAxOSAxNSAxMiA1IDUiPjwvcG9seWdvbj4gICAgICAgICAgICA8L2c+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4="
 
 
+btnLeft : String
 btnLeft =
     "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxN3B4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAxNyAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5hbmdsZWQtbGVmdDwvdGl0bGU+ICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPiAgICA8ZGVmcz48L2RlZnM+ICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiAgICAgICAgPGcgaWQ9IjI0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNS4wMDAwMDAsIC0xLjAwMDAwMCkiPiAgICAgICAgICAgIDxnIGlkPSJhbmdsZWQtbGVmdCI+ICAgICAgICAgICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIHg9IjAiIHk9IjAiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PC9yZWN0PiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iaWNvbiIgc3Ryb2tlPSIjOTc5Nzk3IiBmaWxsPSIjRkZGRkZGIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMy4wMDAwMDAsIDEyLjAwMDAwMCkgc2NhbGUoLTEsIDEpIHRyYW5zbGF0ZSgtMTMuMDAwMDAwLCAtMTIuMDAwMDAwKSAiIHBvaW50cz0iNyAyIDIxIDEyIDcgMjIgNSAxOSAxNSAxMiA1IDUiPjwvcG9seWdvbj4gICAgICAgICAgICA8L2c+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4="
 
@@ -27,12 +40,14 @@ btnLeft =
 -- STATE
 
 
+{-| -}
 type alias State =
     { current : Int
     , touch : Maybe TouchEvents.Touch
     }
 
 
+{-| -}
 initialState : State
 initialState =
     { current = 0
@@ -44,12 +59,14 @@ initialState =
 -- CONFIG
 
 
+{-| -}
 type Config msg
     = Config
         { move : Action -> msg
         }
 
 
+{-| -}
 config :
     { move : Action -> msg
     }
@@ -64,6 +81,7 @@ config { move } =
 -- UPDATE
 
 
+{-| -}
 type Action
     = Next
     | Prev
@@ -72,6 +90,7 @@ type Action
     | OnTouchEnd TouchEvents.Touch Int
 
 
+{-| -}
 moveImage : Action -> State -> State
 moveImage action state =
     case action of
@@ -110,72 +129,92 @@ moveImage action state =
 view : Config msg -> State -> List String -> Html msg
 view (Config { move }) { current } images =
     let
-        left =
-            current * (-100) |> pct
-
-        right =
-            ((List.length images) - current - 1) * (-100) |> pct
-
-        classButton =
-            [ "items-center", "o-100", "w3", "h-100", "absolute", "top-0", "z-999", "justify-center" ]
-
-        classButtonPrev =
-            let
-                display =
-                    if current == 0 then
-                        [ "dn" ]
-                    else
-                        [ "flex" ]
-            in
-                toClassString <| [ "left-0" ] ++ classButton ++ display
-
-        classButtonNext =
-            let
-                display =
-                    if current == (List.length images) - 1 then
-                        [ "dn" ]
-                    else
-                        [ "flex" ]
-            in
-                toClassString <| [ "right-0" ] ++ classButton ++ display
-
-        classButtonImg =
-            toClassString [ "v-top", "w2", "h2", "mw-100", "mh-100", "di", "pointer" ]
-    in
-        div [ class "flex flex-column mw-100 overflow-hidden" ]
-            [ div
-                [ class "relative w-100-ns h-auto"
-                ]
-                [ span [ style [ ( "display", "block" ), ( "padding-top", "100%" ) ] ] []
-                , div [ class classButtonPrev ]
-                    [ a [ onClick (move Prev) ]
-                        [ img [ src btnLeft, class classButtonImg ] []
-                        ]
-                    ]
-                , div
-                    [ class "absolute top-0 flex overflow-hidden transition-all"
-                    , style [ ( "margin-left", left ), ( "margin-right", right ), ( "transition", "all 0.5s ease-in" ) ]
-                    , TouchEvents.onTouchEvent TouchEvents.TouchStart (\e -> move (OnTouchStart e))
-                    , TouchEvents.onTouchEvent TouchEvents.TouchEnd (\e -> move (OnTouchEnd e (List.length images)))
-                    ]
-                    (List.indexedMap (stage current) images)
-                , div [ class classButtonNext ]
-                    [ a
-                        [ onClick (move Next) ]
-                        [ img [ src btnRight, class classButtonImg ] []
-                        ]
-                    ]
-                ]
-            , dots move current images
+        styleButton =
+            [ alignItems center
+            , opacity (int 1)
+            , width (Css.rem 4)
+            , height (pct 100)
+            , position absolute
+            , top zero
+            , zIndex (int 999)
+            , justifyContent center
             ]
+
+        styleButtonPrev =
+            let
+                display_ =
+                    if current == 0 then
+                        display none
+                    else
+                        displayFlex
+            in
+            [ left zero ] ++ styleButton ++ [ display_ ]
+
+        styleButtonNext =
+            let
+                display_ =
+                    if current == List.length images - 1 then
+                        display none
+                    else
+                        displayFlex
+            in
+            [ right zero ] ++ styleButton ++ [ display_ ]
+
+        styleButtonImg =
+            [ verticalAlign top
+            , width (Css.rem 2)
+            , height (Css.rem 2)
+            , maxWidth (pct 100)
+            , maxHeight (pct 100)
+            , display inline
+            , cursor pointer
+            ]
+    in
+    div [ css [ displayFlex, flexDirection column, maxWidth (pct 100), overflow hidden ] ]
+        [ div
+            [ css [ position relative, height auto, width (pct 100) ]
+            , class "relative w-100-ns h-auto"
+            ]
+            [ span [ style [ ( "display", "block" ), ( "padding-top", "100%" ) ] ] []
+            , div [ css styleButtonPrev ]
+                [ a [ onClick (move Prev) ]
+                    [ img [ src btnLeft, css styleButtonImg ] []
+                    ]
+                ]
+            , div
+                [ css
+                    [ position absolute
+                    , top zero
+                    , displayFlex
+                    , overflow hidden
+                    , marginLeft (pct <| toFloat <| current * -100)
+                    , marginRight (pct <| toFloat <| (List.length images - current - 1) * -100)
+                    ]
+                , style
+                    [ ( "transition", "all 0.5s ease-in" )
+                    ]
+
+                -- , TouchEvents.onTouchEvent TouchEvents.TouchStart (\e -> move (OnTouchStart e))
+                -- , TouchEvents.onTouchEvent TouchEvents.TouchEnd (\e -> move (OnTouchEnd e (List.length images)))
+                ]
+                (List.indexedMap (stage current) images)
+            , div [ css styleButtonNext ]
+                [ a
+                    [ onClick (move Next) ]
+                    [ img [ src btnRight, css styleButtonImg ] []
+                    ]
+                ]
+            ]
+        , dots move current images
+        ]
 
 
 stage : Int -> Int -> String -> Html msg
 stage current index image =
-    div [ class "w-100" ]
+    div [ css [ width (pct 100) ] ]
         [ img
             [ src image
-            , class "w-100"
+            , css [ width (pct 100) ]
             ]
             []
         ]
@@ -184,45 +223,77 @@ stage current index image =
 dots : (Action -> msg) -> Int -> List String -> Html msg
 dots move current images =
     let
-        classes =
-            [ "flex", "justify-around", "mt3", "w-50", "self-center" ]
-
-        classesNs =
-            [ "flex-wrap-ns", "w-100-ns", "justify-start-ns" ]
-    in
-        div
-            [ class <| toClassString (classes ++ classesNs)
+        mobile =
+            [ displayFlex
+            , justifyContent spaceAround
+            , marginTop (Css.rem 1)
+            , width (pct 50)
+            , alignSelf center
             ]
-            (List.indexedMap (dotsItem move current) images)
+
+        ns =
+            [ mediaNs
+                [ flexWrap wrap
+                , width (pct 100)
+                , justifyContent start
+                ]
+            ]
+    in
+    div
+        [ css (mobile ++ ns)
+        ]
+        (List.indexedMap (dotsItem move current) images)
 
 
 dotsItem : (Action -> msg) -> Int -> Int -> String -> Html msg
 dotsItem move current index image =
     let
-        classes =
-            [ "br-50", "h1", "w1", "br3", "bg-black-80" ]
+        mobile =
+            [ borderRadius (pct 50)
+            , height (Css.rem 1)
+            , width (Css.rem 1)
+            , backgroundColor <| rgba 0 0 0 0.8
+            ]
 
-        classesNs =
-            [ "br0-ns", "w-20-ns", "h-auto-ns" ]
+        ns =
+            [ mediaNs
+                [ borderRadius zero
+                , width (pct 20)
+                , height auto
+                ]
+            ]
+
+        active =
+            [ opacity (int 1)
+            , border3 (px 1) solid (rgba 0 0 0 0.5)
+            , boxSizing borderBox
+            ]
+
+        nonactive =
+            [ opacity (int 1)
+            , border3 (px 1) solid (rgba 255 255 255 1.0)
+            , boxSizing borderBox
+            , cursor pointer
+            ]
+
+        dot =
+            [ display none, mediaNs [ display block ], maxWidth (pct 100), height auto ]
     in
-        if current == index then
-            div [ class <| toClassString (classes ++ classesNs ++ [ "o-100 ba b--solid b--black-50" ]) ]
-                [ img [ src image, class "dn db-ns" ] []
-                ]
-        else
-            div
-                [ onClick (move (SetCurrent index))
-                , class <| toClassString (classes ++ classesNs ++ [ "o-50 pointer" ])
-                ]
-                [ img [ src image, class "dn db-ns" ] []
-                ]
+    if current == index then
+        div
+            [ css (mobile ++ ns ++ active)
+            ]
+            [ img [ src image, css dot ] []
+            ]
+    else
+        div
+            [ onClick (move (SetCurrent index))
+            , css (mobile ++ ns ++ nonactive)
+            ]
+            [ img [ src image, css dot ] []
+            ]
 
 
-toClassString : List String -> String
-toClassString list =
-    String.join " " list
-
-
-pct : Int -> String
-pct value =
-    (toString value) ++ "%"
+mediaNs : List Style -> Style
+mediaNs =
+    withMedia [ only screen [ Media.minWidth (px 480) ] ]
