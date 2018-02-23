@@ -1,9 +1,9 @@
-module Main exposing (..)
+module Main exposing (main)
 
-import Css
+import Css exposing (..)
 import Html
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (..)
+import Html.Styled.Attributes exposing (css)
 import Html.Styled.Events exposing (onClick)
 import Slider as Slider exposing (view)
 
@@ -16,6 +16,7 @@ imageList =
     , "assets/images/1200x1200-2018021500055.jpg"
     , "assets/images/1200x1200-2018021500056.jpg"
     , "assets/images/1200x1200-2018021500057.jpg"
+    , "assets/images/access_01.jpg"
     ]
 
 
@@ -49,13 +50,13 @@ view { slider } =
     in
     div
         [ css
-            [ Css.displayFlex
-            , Css.flexDirection Css.column
-            , Css.justifyContent Css.center
-            , Css.alignItems Css.center
+            [ displayFlex
+            , flexDirection column
+            , justifyContent center
+            , alignItems center
             ]
         ]
-        [ div [ css [ Css.maxWidth (Css.px 600) ] ]
+        [ div [ css [ width (pct 100), maxWidth (px 600) ] ]
             [ Slider.view config slider imageList
             ]
         ]
