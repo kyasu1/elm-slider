@@ -21,7 +21,7 @@ module Slider
 import Css exposing (..)
 import Css.Media as Media exposing (only, screen, withMedia)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes as Attributes exposing (class, css, src, style)
+import Html.Styled.Attributes exposing (class, css, src, style)
 import Html.Styled.Events exposing (onClick)
 import TouchEvents exposing (Direction(..), Touch, TouchEvent(..))
 
@@ -173,9 +173,13 @@ view (Config { move }) { current } images =
     div [ css [ displayFlex, flexDirection column, maxWidth (pct 100), overflow hidden ] ]
         [ div
             [ css [ position relative, height auto, width (pct 100) ]
-            , class "relative w-100-ns h-auto"
+
+            -- , class "relative w-100-ns h-auto"
             ]
-            [ span [ style [ ( "display", "block" ), ( "padding-top", "100%" ) ] ] []
+            [ span
+                [ css [ display block, paddingTop (pct 100) ]
+                ]
+                []
             , div [ css styleButtonPrev ]
                 [ a [ onClick (move Prev) ]
                     [ img [ src btnLeft, css styleButtonImg ] []
@@ -193,9 +197,10 @@ view (Config { move }) { current } images =
                 , style
                     [ ( "transition", "all 0.5s ease-in" )
                     ]
-
-                -- , TouchEvents.onTouchEvent TouchEvents.TouchStart (\e -> move (OnTouchStart e))
-                -- , TouchEvents.onTouchEvent TouchEvents.TouchEnd (\e -> move (OnTouchEnd e (List.length images)))
+                , TouchEvents.onTouchEvent TouchEvents.TouchStart (\e -> move (OnTouchStart e))
+                    |> Html.Styled.Attributes.fromUnstyled
+                , TouchEvents.onTouchEvent TouchEvents.TouchEnd (\e -> move (OnTouchEnd e (List.length images)))
+                    |> Html.Styled.Attributes.fromUnstyled
                 ]
                 (List.indexedMap (stage current) images)
             , div [ css styleButtonNext ]
